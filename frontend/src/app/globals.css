@@ -1,0 +1,436 @@
+@import "tailwindcss";
+
+/* Design tokens — taken from the PriceWise AI Figma screens (light theme). */
+@theme {
+  --color-canvas: #f6f5ec;
+  --color-surface: #fdfdf8;
+  --color-surface-muted: #ecece1;
+  --color-line: #e1e0d3;
+  --color-ink: #10241c;
+  --color-ink-soft: #46544c;
+  --color-ink-faint: #5f6a63;
+  --color-brand: #0b4f3e;
+  --color-brand-strong: #073a2e;
+  --color-brand-tint: #e4ede7;
+  --color-gold: #a8900f;
+  --color-gold-tint: #f4efc9;
+  --color-fuel: #3f5f9a;
+  --color-up: #16794b;
+  --color-down: #b3380f;
+  --color-warn: #8a5a00;
+  --color-warn-tint: #fbf0cf;
+}
+
+@theme inline {
+  --font-sans:
+    "Segoe UI Variable Text", "Segoe UI", Arial, ui-sans-serif, system-ui,
+    sans-serif;
+  --font-display:
+    "Segoe UI Variable Display", "Segoe UI", Arial, ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-feature-settings:
+    "kern" 1,
+    "liga" 1;
+}
+
+button,
+a {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+button:active,
+a:active {
+  transform: translateY(1px);
+}
+
+.data-grid {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.landing {
+  --landing-mint: #a1ffcb;
+  --landing-green: #0b6047;
+}
+.landing ::selection {
+  background: var(--landing-mint);
+  color: #232323;
+}
+.landing-display {
+  font-family: var(--font-brand), "Segoe UI", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.font-brand {
+  font-family: var(--font-brand), "Segoe UI", Arial, sans-serif;
+}
+.landing a.landing-button,
+.landing button.landing-button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.landing a.landing-button:hover,
+.landing button.landing-button:hover {
+  transform: translateY(-2px);
+}
+.landing a.landing-button--dark,
+.landing button.landing-button--dark {
+  background-color: #232323;
+  color: #fff;
+}
+.landing a.landing-button--dark:hover,
+.landing button.landing-button--dark:hover {
+  background-color: #0b6047;
+}
+.landing a.landing-button--light {
+  border: 1px solid rgb(0 0 0 / 16%);
+  background-color: #fff;
+  color: #232323;
+}
+.landing a.landing-button--light:hover {
+  border-color: #232323;
+}
+.landing-link {
+  position: relative;
+  padding-block: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.landing-link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.4rem;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+.landing-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.page-progress-track {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-progress-value {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0b6047;
+  transform: scaleX(var(--page-progress, 0));
+  transform-origin: left;
+}
+
+.landing-type-control {
+  position: relative;
+  color: transparent;
+  font: inherit;
+  letter-spacing: inherit;
+  -webkit-text-stroke: 1.25px #202521;
+  transition:
+    color 180ms ease,
+    transform 180ms ease,
+    -webkit-text-stroke-color 180ms ease;
+}
+
+.landing-type-control::after {
+  position: absolute;
+  right: 0.03em;
+  bottom: 0.02em;
+  left: 0.03em;
+  height: 0.08em;
+  content: "";
+  background: #0b6047;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 180ms ease;
+}
+
+.landing-type-control:hover,
+.landing-type-control:focus-visible,
+.landing-type-control[aria-pressed="true"] {
+  color: #0b6047;
+  -webkit-text-stroke-color: #0b6047;
+  transform: translateY(-2px);
+}
+
+.landing-type-control:hover::after,
+.landing-type-control:focus-visible::after,
+.landing-type-control[aria-pressed="true"]::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.type-outline-light {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(161 255 203 / 78%);
+}
+
+.closing-accent {
+  color: transparent;
+  -webkit-text-stroke: 1px #77684d;
+  background-image: linear-gradient(#77684d, #77684d);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0;
+  transition:
+    color 220ms ease,
+    background-size 220ms ease;
+}
+
+.story-section {
+  background: #f7f8f4;
+}
+
+.story-step {
+  display: grid;
+  min-height: 54svh;
+  grid-template-columns: 2.5rem 1fr;
+  align-content: center;
+  gap: 1rem;
+  border-top: 1px solid rgb(32 37 33 / 14%);
+}
+
+.story-step[data-active="true"] {
+  border-top-color: rgb(11 96 71 / 55%);
+}
+
+.story-step-number {
+  padding-top: 0.35rem;
+  color: #0b6047;
+  font-family: var(--font-brand), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.story-visual {
+  overflow: hidden;
+  border-radius: 16px;
+  background: #edf3ef;
+  box-shadow: 0 28px 70px rgb(18 53 41 / 12%);
+}
+
+.story-visual-head {
+  display: flex;
+  min-height: 3.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgb(32 37 33 / 10%);
+  padding-inline: 1.25rem;
+}
+
+.story-stage {
+  position: relative;
+  min-height: 25rem;
+  background: #fff;
+}
+
+.story-panel {
+  position: absolute;
+  inset: 0;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  opacity: 0;
+  clip-path: inset(8% 0 0 0 round 12px);
+  transform: translateY(12px);
+  visibility: hidden;
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    clip-path 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 420ms;
+}
+
+.story-visual[data-active="price"] .story-panel--price,
+.story-visual[data-active="context"] .story-panel--context,
+.story-visual[data-active="action"] .story-panel--action {
+  opacity: 1;
+  clip-path: inset(0 round 0);
+  transform: translateY(0);
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.story-mobile-visual .story-stage {
+  min-height: 24rem;
+}
+
+.story-mobile-visual .story-visual[data-active="price"] .story-stage {
+  min-height: 19rem;
+}
+
+.story-mobile-visual .story-visual[data-active="action"] .story-stage {
+  min-height: 21rem;
+}
+
+@media (max-width: 1023px) {
+  .story-step {
+    min-height: auto;
+    padding-block: 4rem;
+    opacity: 1;
+  }
+}
+
+.closing-accent:hover {
+  color: #77684d;
+  background-size: 100% 12%;
+}
+
+.closing-panel::before,
+.closing-panel::after {
+  position: absolute;
+  top: 50%;
+  right: -6rem;
+  width: 42rem;
+  height: 42rem;
+  border: 1px solid rgb(184 170 141 / 35%);
+  border-radius: 999px;
+  content: "";
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.closing-panel::after {
+  right: -1rem;
+  width: 30rem;
+  height: 30rem;
+  border-color: rgb(184 170 141 / 25%);
+}
+
+.footer-word {
+  padding: 0.06em 0.08em 0.1em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(161 255 203 / 52%);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0,
+    transparent 8px,
+    rgb(161 255 203 / 14%) 8px,
+    rgb(161 255 203 / 14%) 9px
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  transition:
+    color 240ms ease,
+    letter-spacing 240ms ease;
+}
+
+.footer-word:hover {
+  color: rgb(161 255 203 / 10%);
+  letter-spacing: -0.085em;
+}
+
+.footer-link {
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.footer-link:hover {
+  color: #a1ffcb;
+}
+
+.landing :focus-visible {
+  outline: 3px solid #0b6047;
+  outline-offset: 3px;
+}
+
+.landing .bg-\[\#202521\] :focus-visible {
+  outline-color: #a1ffcb;
+}
+
+.landing footer :focus-visible,
+.landing aside :focus-visible,
+.landing #access :focus-visible {
+  outline-color: #a1ffcb;
+}
+
+@media (max-width: 639px) {
+  .closing-panel::before {
+    right: -14rem;
+    width: 30rem;
+    height: 30rem;
+  }
+
+  .closing-panel::after {
+    right: -8rem;
+    width: 22rem;
+    height: 22rem;
+  }
+}
+@keyframes landing-enter {
+  from {
+    opacity: 1;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.landing h1,
+.landing-visual,
+.landing-float {
+  animation: landing-enter 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.landing-visual {
+  animation-delay: 90ms;
+}
+.landing-float {
+  animation-delay: 180ms;
+}
+@media (max-width: 639px) {
+  .landing-nav .landing-button {
+    padding-inline: 0.85rem;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.bg-brand :focus-visible {
+  outline-color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
